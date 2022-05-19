@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.2
+-- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 22, 2020 at 08:52 AM
--- Server version: 10.4.11-MariaDB
--- PHP Version: 7.2.30
+-- Generation Time: May 10, 2022 at 09:50 AM
+-- Server version: 10.4.22-MariaDB
+-- PHP Version: 8.1.2
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -31,17 +31,20 @@ CREATE TABLE `cart` (
   `id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
   `product_id` int(11) NOT NULL,
-  `quantity` int(11) NOT NULL
+  `quantity` int(11) NOT NULL,
+  `Sizes` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `cart`
 --
 
-INSERT INTO `cart` (`id`, `user_id`, `product_id`, `quantity`) VALUES
-(1, 9, 1, 4),
-(3, 9, 4, 6),
-(4, 9, 12, 2);
+INSERT INTO `cart` (`id`, `user_id`, `product_id`, `quantity`, `Sizes`) VALUES
+(1, 9, 1, 4, ''),
+(3, 9, 4, 6, ''),
+(4, 9, 12, 2, ''),
+(24, 27, 75, 1, 'No Sizes'),
+(39, 14, 87, 1, 'Medium ');
 
 -- --------------------------------------------------------
 
@@ -60,9 +63,20 @@ CREATE TABLE `category` (
 --
 
 INSERT INTO `category` (`id`, `name`, `cat_slug`) VALUES
-(1, 'Laptops', 'laptops'),
-(2, 'Desktop PC', 'desktop-pc'),
-(3, 'Tablets', 'tablets');
+(4, 'Tshirts', ''),
+(5, 'Mug', ''),
+(6, 'Heater', ''),
+(7, 'Bath Towel', ''),
+(8, 'Teddy Bear', ''),
+(9, 'Flower', ''),
+(10, 'Tumblir Mug', ''),
+(11, 'Jacket', ''),
+(12, 'Duster', ''),
+(13, 'Dress', ''),
+(14, 'Shorts', ''),
+(15, 'Pants', ''),
+(16, 'Jogging Pants', ''),
+(17, 'Laptop', '');
 
 -- --------------------------------------------------------
 
@@ -74,21 +88,96 @@ CREATE TABLE `details` (
   `id` int(11) NOT NULL,
   `sales_id` int(11) NOT NULL,
   `product_id` int(11) NOT NULL,
-  `quantity` int(11) NOT NULL
+  `quantity` int(11) NOT NULL,
+  `Sizes` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `details`
 --
 
-INSERT INTO `details` (`id`, `sales_id`, `product_id`, `quantity`) VALUES
-(14, 9, 11, 2),
-(15, 9, 13, 5),
-(16, 9, 3, 2),
-(17, 9, 1, 3),
-(18, 10, 13, 3),
-(19, 10, 2, 4),
-(20, 10, 19, 5);
+INSERT INTO `details` (`id`, `sales_id`, `product_id`, `quantity`, `Sizes`) VALUES
+(14, 9, 11, 2, ''),
+(15, 9, 13, 5, ''),
+(16, 9, 3, 2, ''),
+(17, 9, 1, 3, ''),
+(18, 10, 13, 3, ''),
+(19, 10, 2, 4, ''),
+(20, 10, 19, 5, ''),
+(21, 11, 2, 1, ''),
+(22, 12, 9, 1, ''),
+(23, 13, 27, 1, ''),
+(24, 14, 27, 1, ''),
+(25, 15, 71, 4, ''),
+(26, 16, 45, 1, ''),
+(27, 17, 41, 1, ''),
+(28, 18, 61, 1, ''),
+(29, 18, 65, 1, '');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `orders`
+--
+
+CREATE TABLE `orders` (
+  `id` int(11) NOT NULL,
+  `user_id` int(255) NOT NULL,
+  `product_id` int(255) NOT NULL,
+  `product_image` varchar(255) NOT NULL,
+  `product_name` varchar(255) NOT NULL,
+  `product_price` varchar(255) NOT NULL,
+  `product_size` varchar(255) NOT NULL,
+  `product_quantity` int(255) NOT NULL,
+  `Name` varchar(255) NOT NULL,
+  `Sizes` varchar(255) NOT NULL,
+  `contact_number` varchar(255) NOT NULL,
+  `address` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `orders`
+--
+
+INSERT INTO `orders` (`id`, `user_id`, `product_id`, `product_image`, `product_name`, `product_price`, `product_size`, `product_quantity`, `Name`, `Sizes`, `contact_number`, `address`) VALUES
+(13, 14, 0, 'hhhh.PNG', 'hhhh', '14652', 'Small', 11, 'vincent fernandez', '', '09301798988', 'bagong silang caloocan'),
+(14, 14, 0, 'hhhh.PNG', 'hhhh', '2664', 'Small', 2, 'vincent fernandez', '', '09301798988', 'bagong silang caloocan'),
+(15, 14, 0, 'hhhh.PNG', 'hhhh', '2664', 'Small', 4, 'vincent fernandez', '', '09301798988', 'bagong silang caloocan'),
+(17, 14, 0, 'lion-tshirt-small.jpg', 'LION TSHIRT SMALL', '999', 'Small ', 1, 'vincent fernandez', '', '09301798988', 'bagong silang caloocan'),
+(18, 14, 0, 'lion-tshirt-small.jpg', 'LION TSHIRT SMALL', '999', 'Small ', 1, 'vincent fernandez', '', '09301798988', 'bagong silang caloocan');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `paymentgcash`
+--
+
+CREATE TABLE `paymentgcash` (
+  `id` int(11) NOT NULL,
+  `user_id` int(255) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `product_id` int(255) NOT NULL,
+  `product_image` varchar(255) NOT NULL,
+  `product_name` varchar(255) NOT NULL,
+  `product_price` varchar(255) NOT NULL,
+  `product_size` varchar(255) NOT NULL,
+  `product_quantity` varchar(255) NOT NULL,
+  `contact_number` varchar(255) NOT NULL,
+  `address` varchar(255) NOT NULL,
+  `ReferenceNumber` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `paymentgcash`
+--
+
+INSERT INTO `paymentgcash` (`id`, `user_id`, `name`, `product_id`, `product_image`, `product_name`, `product_price`, `product_size`, `product_quantity`, `contact_number`, `address`, `ReferenceNumber`) VALUES
+(1, 14, 'vincent fernandez', 0, 'lion-tshirt-small.jpg', 'LION TSHIRT SMALL', '999', 'Small ', '1', '09301798988', 'bagong silang caloocan', ''),
+(7, 14, '1', 0, 'lion-tshirt-small.jpg', 'vincent fernandez', 'LION TSHIRT SMALL', '999', 'Small ', '09301798988', 'bagong silang caloocan', 'asdasd'),
+(8, 14, 'vincent fernandez', 0, 'anime-tshirt.jpg', 'ANIME TSHIRT', '198', 'Small ', '2', '09301798988', 'bagong silang caloocan', 'SAMPLEREFERENCENUMBER'),
+(9, 14, 'vincent fernandez', 0, 'lion-tshirt-small.jpg', 'LION TSHIRT SMALL', '9990', 'Small ', '10', '09301798988', 'bagong silang caloocan', '1001 543 610110'),
+(10, 14, 'vincent fernandez', 0, 'lion-tshirt-small.jpg', 'LION TSHIRT SMALL', '1998', 'Small ', '2', '09301798988', 'bagong silang caloocan', '1001 543 610110'),
+(11, 14, 'vincent fernandez', 0, 'pants-men.jpg', 'Pants For Men', '999', 'Medium ', '1', '09301798988', 'bagong silang caloocan', '1001 543 610110');
 
 -- --------------------------------------------------------
 
@@ -104,6 +193,11 @@ CREATE TABLE `products` (
   `slug` varchar(200) NOT NULL,
   `price` double NOT NULL,
   `photo` varchar(200) NOT NULL,
+  `size` varchar(30) NOT NULL,
+  `prodquantity` int(255) NOT NULL,
+  `Small` varchar(30) NOT NULL,
+  `Medium` varchar(30) NOT NULL,
+  `Large` varchar(30) NOT NULL,
   `date_view` date NOT NULL,
   `counter` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -112,27 +206,65 @@ CREATE TABLE `products` (
 -- Dumping data for table `products`
 --
 
-INSERT INTO `products` (`id`, `category_id`, `name`, `description`, `slug`, `price`, `photo`, `date_view`, `counter`) VALUES
-(1, 1, 'DELL Inspiron 15 7000 15.6', '<p>15-inch laptop ideal for gamers. Featuring the latest Intel&reg; processors for superior gaming performance, and life-like NVIDIA&reg; GeForce&reg; graphics and an advanced thermal cooling design.</p>\r\n', 'dell-inspiron-15-7000-15-6', 899, 'dell-inspiron-15-7000-15-6.jpg', '2018-05-12', 1),
-(2, 1, 'MICROSOFT Surface Pro 4 & Typecover - 128 GB', '<p>Surface Pro 4 powers through everything you need to do, while being lighter than ever before</p>\r\n\r\n<p>The 12.3 PixelSense screen has extremely high contrast and low glare so you can work through the day without straining your eyes</p>\r\n\r\n<p>keyboard is not included and needed to be purchased separately</p>\r\n\r\n<p>Features an Intel Core i5 6th Gen (Skylake) Core,Wireless: 802.11ac Wi-Fi wireless networking; IEEE 802.11a/b/g/n compatible Bluetooth 4.0 wireless technology</p>\r\n\r\n<p>Ships in Consumer packaging.</p>\r\n', 'microsoft-surface-pro-4-typecover-128-gb', 799, 'microsoft-surface-pro-4-typecover-128-gb.jpg', '2018-05-10', 3),
-(3, 1, 'DELL Inspiron 15 5000 15.6', '<p>Dell&#39;s 15.6-inch, midrange notebook is a bland, chunky block. It has long been the case that the Inspiron lineup lacks any sort of aesthetic muse, and the Inspiron 15 5000 follows this trend. It&#39;s a plastic, silver slab bearing Dell&#39;s logo in a mirror sheen.</p>\r\n\r\n<p>Lifting the lid reveals the 15.6-inch, 1080p screen surrounded by an almost offensively thick bezel and a plastic deck with a faux brushed-metal look. There&#39;s a fingerprint reader on the power button, and the keyboard is a black collection of island-style keys.</p>\r\n', 'dell-inspiron-15-5000-15-6', 599, 'dell-inspiron-15-5000-15-6.jpg', '2018-05-12', 1),
-(4, 1, 'LENOVO Ideapad 320s-14IKB 14\" Laptop - Grey', '<p>- Made for portability with a slim, lightweight chassis design&nbsp;<br />\r\n<br />\r\n- Powerful processing helps you create and produce on the go&nbsp;<br />\r\n<br />\r\n- Full HD screen ensures crisp visuals for movies, web pages, photos and more&nbsp;<br />\r\n<br />\r\n- Enjoy warm, sparkling sound courtesy of two Harman speakers and Dolby Audio&nbsp;<br />\r\n<br />\r\n- Fast data transfer and high-quality video connection with USB-C and HDMI ports&nbsp;<br />\r\n<br />\r\nThe Lenovo&nbsp;<strong>IdeaPad 320s-14IKB 14&quot; Laptop</strong>&nbsp;is part of our Achieve range, which has the latest tech to help you develop your ideas and work at your best. It&#39;s great for editing complex documents, business use, editing photos, and anything else you do throughout the day.</p>\r\n', 'lenovo-ideapad-320s-14ikb-14-laptop-grey', 399, 'lenovo-ideapad-320s-14ikb-14-laptop-grey.jpg', '2018-05-10', 3),
-(5, 3, 'APPLE 9.7\" iPad - 32 GB, Gold', '<p>9.7 inch Retina Display, 2048 x 1536 Resolution, Wide Color and True Tone Display</p>\r\n\r\n<p>Apple iOS 9, A9X chip with 64bit architecture, M9 coprocessor</p>\r\n\r\n<p>12 MP iSight Camera, True Tone Flash, Panorama (up to 63MP), Four-Speaker Audio</p>\r\n\r\n<p>Up to 10 Hours of Battery Life</p>\r\n\r\n<p>iPad Pro Supports Apple Smart Keyboard and Apple Pencil</p>\r\n', 'apple-9-7-ipad-32-gb-gold', 339, 'apple-9-7-ipad-32-gb-gold.jpg', '2018-05-10', 3),
-(6, 1, 'DELL Inspiron 15 5000 15', '<p>15-inch laptop delivering an exceptional viewing experience, a head-turning finish and an array of options designed to elevate your entertainment, wherever you go.</p>\r\n', 'dell-inspiron-15-5000-15', 449.99, 'dell-inspiron-15-5000-15.jpg', '0000-00-00', 0),
-(7, 3, 'APPLE 10.5\" iPad Pro - 64 GB, Space Grey (2017)', '<p>4K video recording at 30 fps</p>\r\n\r\n<p>12-megapixel camera</p>\r\n\r\n<p>Fingerprint resistant coating</p>\r\n\r\n<p>Antireflective coating</p>\r\n\r\n<p>Face Time video calling</p>\r\n', 'apple-10-5-ipad-pro-64-gb-space-grey-2017', 619, 'apple-10-5-ipad-pro-64-gb-space-grey-2017.jpg', '0000-00-00', 0),
-(8, 1, 'ASUS Transformer Mini T102HA 10.1\" 2 in 1 - Silver', '<p>Versatile Windows 10 device with keyboard and pen included, 2-in-1 functionality: use as both laptop and tablet.Update Windows periodically to ensure that your applications have the latest security settings.</p>\r\n\r\n<p>All day battery life, rated up to 11 hours of video playback; 128GB Solid State storage. Polymer Battery.With up to 11 hours between charges, you can be sure that Transformer Mini T102HA will be right there whenever you need it. You can charge T102HA via its micro USB port, so you can use a mobile charger or any power bank with a micro USB connector.</p>\r\n', 'asus-transformer-mini-t102ha-10-1-2-1-silver', 549.99, 'asus-transformer-mini-t102ha-10-1-2-1-silver.jpg', '0000-00-00', 0),
-(9, 2, 'PC SPECIALIST Vortex Core Lite Gaming PC', '<p>- Top performance for playing eSports and more&nbsp;<br />\r\n<br />\r\n- NVIDIA GeForce GTX graphics deliver smooth visuals&nbsp;<br />\r\n<br />\r\n- GeForce Experience delivers updates straight to your PC&nbsp;<br />\r\n<br />\r\nThe PC Specialist&nbsp;<strong>Vortex Core Lite&nbsp;</strong>is part of our Gaming range, bringing you the most impressive PCs available today. It has spectacular graphics and fast processing performance to suit the most exacting players.</p>\r\n', 'pc-specialist-vortex-core-lite-gaming-pc', 599.99, 'pc-specialist-vortex-core-lite-gaming-pc.jpg', '0000-00-00', 0),
-(10, 2, 'DELL Inspiron 5675 Gaming PC - Recon Blue', '<p>All-new gaming desktop featuring powerful AMD Ryzen&trade; processors, graphics ready for VR, LED lighting and a meticulous design for optimal cooling.</p>\r\n', 'dell-inspiron-5675-gaming-pc-recon-blue', 599.99, 'dell-inspiron-5675-gaming-pc-recon-blue.jpg', '2018-05-10', 1),
-(11, 2, 'HP Barebones OMEN X 900-099nn Gaming PC', '<p>What&#39;s inside matters.</p>\r\n\r\n<p>Without proper cooling, top tierperformance never reaches its fullpotential.</p>\r\n\r\n<p>Nine lighting zones accentuate theaggressive lines and smooth blackfinish of this unique galvanized steelcase.</p>\r\n', 'hp-barebones-omen-x-900-099nn-gaming-pc', 489.98, 'hp-barebones-omen-x-900-099nn-gaming-pc.jpg', '2018-05-12', 1),
-(12, 2, 'ACER Aspire GX-781 Gaming PC', '<p>- GTX 1050 graphics card lets you play huge games in great resolutions&nbsp;<br />\r\n<br />\r\n- Latest generation Core&trade; i5 processor can handle demanding media software&nbsp;<br />\r\n<br />\r\n- Superfast SSD storage lets you load programs in no time&nbsp;<br />\r\n<br />\r\nThe Acer&nbsp;<strong>Aspire&nbsp;GX-781 Gaming PC&nbsp;</strong>is part of our Gaming range, which offers the most powerful PCs available today. It has outstanding graphics and processing performance to suit the most demanding gamer.</p>\r\n', 'acer-aspire-gx-781-gaming-pc', 749.99, 'acer-aspire-gx-781-gaming-pc.jpg', '2018-05-12', 3),
-(13, 2, 'HP Pavilion Power 580-015na Gaming PC', '<p>Features the latest quad core Intel i5 processor and discrete graphics. With this power, you&rsquo;re ready to take on any activity from making digital art to conquering new worlds in VR.</p>\r\n\r\n<p>Choose the performance and storage you need. Boot up in seconds with to 128 GB SSD.</p>\r\n\r\n<p>Ditch the dull grey box, this desktop comes infused with style. A new angular bezel and bold green and black design give your workspace just the right amount of attitude.</p>\r\n\r\n<p>Up to 3 times faster performance - GeForce GTX 10-series graphics cards are powered by Pascal to deliver twice the performance of previous-generation graphics cards.</p>\r\n', 'hp-pavilion-power-580-015na-gaming-pc', 799.99, 'hp-pavilion-power-580-015na-gaming-pc.jpg', '2018-05-12', 1),
-(14, 2, 'LENOVO Legion Y520 Gaming PC', '<p>- Multi-task with ease thanks to Intel&reg; i5 processor&nbsp;<br />\r\n<br />\r\n- Prepare for battle with NVIDIA GeForce GTX graphics card&nbsp;<br />\r\n<br />\r\n- VR ready for the next-generation of immersive gaming and entertainment<br />\r\n<br />\r\n- Tool-less upgrade helps you personalise your system to your own demands&nbsp;<br />\r\n<br />\r\nPart of our Gaming range, which features the most powerful PCs available today, the Lenovo&nbsp;<strong>Legion Y520 Gaming PC</strong>&nbsp;has superior graphics and processing performance to suit the most demanding gamer.</p>\r\n', 'lenovo-legion-y520-gaming-pc', 899.99, 'lenovo-legion-y520-gaming-pc.jpg', '2018-05-10', 13),
-(15, 2, 'PC SPECIALIST Vortex Minerva XT-R Gaming PC', '<p>- NVIDIA GeForce GTX graphics for stunning gaming visuals<br />\r\n<br />\r\n- Made for eSports with a speedy 7th generation Intel&reg; Core&trade; i5 processor<br />\r\n<br />\r\n- GeForce technology lets you directly update drivers, record your gaming and more<br />\r\n<br />\r\nThe PC Specialist&nbsp;<strong>Vortex Minerva XT-R Gaming PC</strong>&nbsp;is part of our Gaming range, which offers the most powerful PCs available. Its high-performance graphics and processing are made to meet the needs of serious gamers.</p>\r\n', 'pc-specialist-vortex-minerva-xt-r-gaming-pc', 999.99, 'pc-specialist-vortex-minerva-xt-r-gaming-pc.jpg', '2018-05-10', 1),
-(16, 2, 'PC SPECIALIST Vortex Core II Gaming PC', '<p>Processor: Intel&reg; CoreTM i3-6100 Processor- Dual-core- 3.7 GHz- 3 MB cache</p>\r\n\r\n<p>Memory (RAM): 8 GB DDR4 HyperX, Storage: 1 TB HDD, 7200 rpm</p>\r\n\r\n<p>Graphics card: NVIDIA GeForce GTX 950 (2 GB GDDR5), Motherboard: ASUS H110M-R</p>\r\n\r\n<p>USB: USB 3.0 x 3- USB 2.0 x 5, Video interface: HDMI x 1- DisplayPort x 1- DVI x 2, Audio interface: 3.5 mm jack, Optical disc drive: DVD/RW, Expansion card slot PCIe: (x1) x 2</p>\r\n\r\n<p>Sound: 5.1 Surround Sound support PSU Corsair: VS350, 350W, Colour: Black- Green highlights, Box contents: PC Specialist Vortex Core- AC power cable</p>\r\n', 'pc-specialist-vortex-core-ii-gaming-pc', 649.99, 'pc-specialist-vortex-core-ii-gaming-pc.jpg', '2018-05-10', 2),
-(17, 3, 'AMAZON Fire 7 Tablet with Alexa (2017) - 8 GB, Black', '<p>The next generation of our best-selling Fire tablet ever - now thinner, lighter, and with longer battery life and an improved display. More durable than the latest iPad</p>\r\n\r\n<p>Beautiful 7&quot; IPS display with higher contrast and sharper text, a 1.3 GHz quad-core processor, and up to 8 hours of battery life. 8 or 16 GB of internal storage and a microSD slot for up to 256 GB of expandable storage.</p>\r\n', 'amazon-fire-7-tablet-alexa-2017-8-gb-black', 49.99, 'amazon-fire-7-tablet-alexa-2017-8-gb-black.jpg', '2018-05-12', 1),
-(18, 3, 'AMAZON Fire HD 8 Tablet with Alexa (2017) - 16 GB, Black', '<p>Take your personal assistant with you wherever you go with this Amazon Fire HD 8 tablet featuring Alexa voice-activated cloud service. The slim design of the tablet is easy to handle, and the ample 8-inch screen is ideal for work or play. This Amazon Fire HD 8 features super-sharp high-definition graphics for immersive streaming.</p>\r\n', 'amazon-fire-hd-8-tablet-alexa-2017-16-gb-black', 79.99, 'amazon-fire-hd-8-tablet-alexa-2017-16-gb-black.jpg', '2018-05-12', 2),
-(19, 3, 'AMAZON Fire HD 8 Tablet with Alexa (2017) - 32 GB, Black', '<p>The next generation of our best-reviewed Fire tablet, with up to 12 hours of battery life, a vibrant 8&quot; HD display, a 1.3 GHz quad-core processor, 1.5 GB of RAM, and Dolby Audio. More durable than the latest iPad.</p>\r\n\r\n<p>16 or 32 GB of internal storage and a microSD slot for up to 256 GB of expandable storage.</p>\r\n', 'amazon-fire-hd-8-tablet-alexa-2017-32-gb-black', 99.99, 'amazon-fire-hd-8-tablet-alexa-2017-32-gb-black.jpg', '2018-05-10', 1),
-(20, 3, 'APPLE 9.7\" iPad - 32 GB, Space Grey', '<p>9.7-inch Retina display, wide color and true tone</p>\r\n\r\n<p>A9 third-generation chip with 64-bit architecture</p>\r\n\r\n<p>M9 motion coprocessor</p>\r\n\r\n<p>1.2MP FaceTime HD camera</p>\r\n\r\n<p>8MP iSight camera</p>\r\n\r\n<p>Touch ID</p>\r\n\r\n<p>Apple Pay</p>\r\n', 'apple-9-7-ipad-32-gb-space-grey', 339, 'apple-9-7-ipad-32-gb-space-grey.jpg', '2018-05-12', 1);
+INSERT INTO `products` (`id`, `category_id`, `name`, `description`, `slug`, `price`, `photo`, `size`, `prodquantity`, `Small`, `Medium`, `Large`, `date_view`, `counter`) VALUES
+(27, 4, 'Terno Tshirts for Kids MALE', '<p>Suitable for Male Kids age 2-3</p>\r\n', 'terno-tshirts-kids-male', 100, 'terno-tshirts-kids-male.jpg', '', 0, '', '', '', '2022-04-23', 3),
+(28, 5, 'Mug with Utensils', '<p>Mug</p>\r\n', 'mug-utensils', 100, 'mug-utensils.jpg', '', 0, '', '', '', '2022-04-23', 7),
+(29, 6, 'Heater with Mug SET', '<p>Heater with MUG set</p>\r\n', 'heater-mug-set', 500, 'heater-mug-set.jpg', '', 0, '', '', '', '2022-04-23', 2),
+(30, 4, 'Tshirt for MEN', '<p>Tshirts for MEN XL MEDIUM SMALL</p>\r\n', 'tshirt-men', 250, 'tshirt-men.jpg', '', 0, '', '', '', '2022-04-23', 6),
+(32, 8, 'Teddy Bear', '<p>Teddy Bear Small</p>\r\n', 'teddy-bear', 500, 'teddy-bear.jpg', '', 0, '', '', '', '2022-04-23', 1),
+(33, 9, 'Flower', '<p>Flower</p>\r\n\r\n<p>&nbsp;</p>\r\n', 'flower', 250, 'flower.jpg', '', 0, '', '', '', '2022-04-23', 2),
+(34, 10, 'tumbler Mug', '<p>Tumbler Mug</p>\r\n', 'tumbler-mug', 999, 'tumbler-mug.jpg', '', 0, '', '', '', '0000-00-00', 0),
+(35, 11, 'Jacket for Men', '<p>Jacket for Men Cotton</p>\r\n', 'jacket-men', 999, 'jacket-men.jpg', '', 0, '', '', '', '0000-00-00', 0),
+(36, 12, 'Duster', '<p>Duster</p>\r\n', 'duster', 500, 'duster.jpg', '', 0, '', '', '', '2022-04-23', 2),
+(37, 13, 'Green Dress', '<p>Women Dress</p>\r\n', 'green-dress', 250, 'green-dress.jpg', '', 0, '', '', '', '2022-04-23', 1),
+(38, 4, 'Women Tshirts', '<p>Tshirts for Women</p>\r\n', 'women-tshirts', 250, 'women-tshirts.jpg', '', 0, '', '', '', '2022-04-20', 1),
+(39, 14, 'Shorts for Men', '<p>Shorts for Men</p>\r\n', 'shorts-men', 250, 'shorts-men.jpg', '', 0, '', '', '', '2022-04-23', 2),
+(40, 15, 'pajama for Women', '<p>Pajama for Women</p>\r\n', 'pajama-women', 999, 'pajama-women.jpg', '', 0, '', '', '', '2022-04-23', 1),
+(41, 16, 'Jogging Pants for Men', '<p>Jogging Pants for Men</p>\r\n', 'jogging-pants-men', 999, 'jogging-pants-men.jpg', '', 0, '', '', '', '2022-04-23', 11),
+(43, 4, 'pogi', '<p>POGI</p>\r\n', 'pogi', 1000, 'pogi.jpg', '', 0, '', '', '', '2022-04-23', 1),
+(44, 4, 'pogi1', '<p>sad</p>\r\n', 'pogi1', 1000, 'pogi1.jpg', '', 0, '', '', '', '2022-04-23', 1),
+(45, 4, 'test', '<p>asd</p>\r\n', 'test', 1000, 'test.jpg', '', 0, '', '', '', '2022-04-23', 1),
+(46, 4, 'test', '<p>asd</p>\r\n', 'test', 1000, 'test.jpg', '', 0, '', '', '', '0000-00-00', 0),
+(47, 4, 'test', '<p>asd</p>\r\n', 'test', 1000, 'test.jpg', '', 0, '', '', '', '0000-00-00', 0),
+(48, 4, 'QCUportal', '<p>asdsad</p>\r\n', 'qcuportal', 1000, 'qcuportal.jpg', '', 0, '', '', '', '2022-04-23', 1),
+(49, 4, 'vincent fernandez', '<p>asdasd</p>\r\n', 'vincent-fernandez', 1000, 'vincent-fernandez.jpg', '', 0, '', '', '', '0000-00-00', 0),
+(50, 4, 'asd', '<p>asdsa</p>\r\n', 'asd', 1000, 'asd.jpg', '', 0, '', '', '', '2022-04-23', 4),
+(51, 4, 'asasd', '', 'asasd', 1000, 'asasd.png', '', 0, '', '', '', '2022-04-23', 6),
+(52, 4, 'asasd', '', 'asasd', 1000, 'asasd.png', '', 0, '', '', '', '0000-00-00', 0),
+(53, 4, 'test1', '<p>asd</p>\r\n', 'test1', 1000, 'test1.jpg', '', 0, 'Small', 'Medium', 'Large', '2022-04-23', 7),
+(54, 4, 'test1', '<p>asd</p>\r\n', 'test1', 1000, 'test1.jpg', '', 0, '', '', '', '0000-00-00', 0),
+(55, 4, 'test1', '<p>asd</p>\r\n', 'test1', 1000, 'test1.jpg', '', 0, '', '', '', '0000-00-00', 0),
+(56, 5, 'QCUportal123', '', 'qcuportal123', 1000, 'qcuportal123.png', '', 0, '', '', '', '2022-04-23', 1),
+(57, 4, 'final', '<p>FINAL</p>\r\n', 'final', 123, 'final.png', '', 0, '', '', '', '2022-04-23', 24),
+(58, 4, 'final1', '<p>asd</p>\r\n', 'final1', 1000, 'final1.png', '', 0, '', '', '', '2022-04-23', 2),
+(60, 4, 'final2', '<p>asd</p>\r\n', 'final2', 1000, 'final2.png', '', 0, '', '', '', '2022-04-20', 1),
+(61, 4, 'vincent', '<p>asdsa</p>\r\n', 'vincent', 1000, 'vincent.jpg', '', 0, '', '', '', '2022-04-23', 3),
+(62, 5, 'vincent1', '<p>asd</p>\r\n', 'vincent1', 1000, 'vincent1.png', '', 0, '', '', '', '2022-04-23', 2),
+(63, 4, 'sample7', '<p>asd</p>\r\n', 'sample7', 1000, 'sample7.jpg', '', 0, '', '', '', '0000-00-00', 0),
+(64, 4, 'sample15', '<p>hh</p>\r\n', 'sample15', 2222, 'sample15.PNG', '', 0, '', '', '', '0000-00-00', 0),
+(65, 4, 'sample22', '<p>ggg</p>\r\n', 'sample22', 1000, 'sample22.PNG', 'Small ', 0, '', '', '', '2022-04-26', 5),
+(66, 4, 'sample22', '<p>ggg</p>\r\n', 'sample22', 1000, 'sample22.PNG', 'Small on ', 0, '', '', '', '0000-00-00', 0),
+(67, 4, 'sample22', '<p>ggg</p>\r\n', 'sample22', 1000, 'sample22.PNG', 'Small on on ', 0, '', '', '', '0000-00-00', 0),
+(68, 5, 'sample23', '<p>hh</p>\r\n', 'sample23', 2222, 'sample23.PNG', 'Small ', 0, '', '', '', '2022-04-23', 18),
+(69, 5, 'sample23', '<p>hh</p>\r\n', 'sample23', 2222, 'sample23.PNG', 'Small Medium ', 0, '', '', '', '0000-00-00', 0),
+(70, 5, 'sample23', '<p>hh</p>\r\n', 'sample23', 2222, 'sample23.PNG', 'Small Medium Large ', 0, '', '', '', '0000-00-00', 0),
+(71, 4, 'sample24', '<p>asd</p>\r\n', 'sample24', 1000, 'sample24.PNG', 'Small', 0, 'Small', 'Medium', 'Large', '2022-04-26', 1),
+(72, 4, 'sample24', '<p>asd</p>\r\n', 'sample24', 1000, 'sample24.PNG', 'Medium', 0, '', '', '', '0000-00-00', 0),
+(73, 4, 'sample24', '<p>asd</p>\r\n', 'sample24', 1000, 'sample24.PNG', 'Large', 0, '', '', '', '0000-00-00', 0),
+(74, 4, 'TTTTEST1', '<p>TESSS</p>\r\n', 'ttttest1', 22, 'ttttest1.jpg', 'Small', 0, '', '', '', '0000-00-00', 0),
+(75, 4, '74TEST1', '<p>asdasd</p>\r\n', '74test1', 200, '74test1.jpg', 'Small', 0, '', '', '', '2022-05-03', 1),
+(76, 4, '74TEST1', '<p>asdasd</p>\r\n', '74test1', 200, '74test1.jpg', 'Medium', 0, '', '', '', '0000-00-00', 0),
+(77, 4, '74TEST1', '<p>asdasd</p>\r\n', '74test1', 200, '74test1.jpg', 'Large', 0, '', '', '', '0000-00-00', 0),
+(78, 4, 'LAST', '<blockquote>\r\n<p>222</p>\r\n</blockquote>\r\n', 'last', 1111, 'last.PNG', 'Medium', 0, '', '', '', '2022-04-26', 8),
+(79, 4, 'hhhh', '<p>asdasd</p>\r\n', 'hhhh', 666, 'hhhh.PNG', 'Small', 0, '', '', '', '2022-05-03', 6),
+(80, 4, 'hhhh', '<p>asdasd</p>\r\n', 'hhhh', 666, 'hhhh.PNG', 'Large', 0, '', '', '', '0000-00-00', 0),
+(81, 4, 'ANIME TSHIRT', '<p>ANIME TSHIRT SMALL</p>\r\n', 'anime-tshirt', 99, 'anime-tshirt.jpg', 'Small', 100, '', '', '', '2022-05-10', 19),
+(82, 4, 'ANIME TSHIRT', '<p>LARGE SIZE</p>\r\n', 'anime-tshirt', 999, 'anime-tshirt.jpg', 'Large', 1010, '', '', '', '0000-00-00', 0),
+(83, 4, 'Lion Tshirt', '<p>LION TSHIRT LARGE</p>\r\n', 'lion-tshirt', 1000, 'lion-tshirt.jpg', 'Large', 999, '', '', '', '0000-00-00', 0),
+(84, 4, 'LION TSHIRT SMALL', '<p>LION TSHIRT SMALL</p>\r\n\r\n<p>&nbsp;</p>\r\n', 'lion-tshirt-small', 999, 'lion-tshirt-small.jpg', 'Small', 999, '', '', '', '2022-05-10', 6),
+(85, 4, 'LION TSHIRT MEDIUM', '<p>LION TSHIRT MEDIUM</p>\r\n', 'lion-tshirt-medium', 999, 'lion-tshirt-medium.jpg', 'Medium', 999, '', '', '', '2022-05-10', 16),
+(86, 9, 'OTHER PRODUCTS', '<p>FLOWER</p>\r\n', 'other-products', 1999, 'other-products.jpg', 'No Sizes', 6, '', '', '', '2022-05-10', 10),
+(87, 15, 'Pants For Men', '<p>Pants Plain for MEN MEDIUM SIZES</p>\r\n', 'pants-men', 999, 'pants-men.jpg', 'Medium', 1000, '', '', '', '2022-05-10', 4);
 
 -- --------------------------------------------------------
 
@@ -152,8 +284,14 @@ CREATE TABLE `sales` (
 --
 
 INSERT INTO `sales` (`id`, `user_id`, `pay_id`, `sales_date`) VALUES
-(9, 9, 'PAY-1RT494832H294925RLLZ7TZA', '2018-05-10'),
-(10, 9, 'PAY-21700797GV667562HLLZ7ZVY', '2018-05-10');
+(11, 22, 'PAYID-MJKQ37I9292238288183983F', '2022-04-12'),
+(12, 23, 'PAYID-MJKSALY5UA77902GB454664A', '2022-04-12'),
+(13, 14, 'PAYID-MJKXZII9RA4700965155425S', '2022-04-12'),
+(14, 14, 'PAYID-MJLCOII7GP777823L5166341', '2022-04-13'),
+(15, 14, 'PAYID-MJR3NJQ1HV51448R4057230U', '2022-04-23'),
+(16, 14, 'PAYID-MJR3VOI46V95432853289032', '2022-04-23'),
+(17, 14, 'PAYID-MJR3XWA0B552782MF147691S', '2022-04-23'),
+(18, 14, 'PAYID-MJR4IGA22D845038G130281H', '2022-04-23');
 
 -- --------------------------------------------------------
 
@@ -182,7 +320,14 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `email`, `password`, `type`, `firstname`, `lastname`, `address`, `contact_info`, `photo`, `status`, `activate_code`, `reset_code`, `created_on`) VALUES
-(1, 'admin@admin.com', '$2y$10$8wY63GX/y9Bq780GBMpxCesV9n1H6WyCqcA2hNy2uhC59hEnOpNaS', 1, 'Lyndon', 'Bermoy', '', '', 'profile youtube1.jpg', 1, '', '', '2018-05-01');
+(1, 'admin@admin.com', '$2y$10$8wY63GX/y9Bq780GBMpxCesV9n1H6WyCqcA2hNy2uhC59hEnOpNaS', 1, 'Vincent', 'Fernandez', '', '', 'formal.png.jpg', 1, '', '', '2022-04-12'),
+(14, 'vincent@gmail.com', '$2y$10$smaM99rhhZLOepJntdXmhOV4v1DQJFASL/ooAudecYvG4SrY19NKi', 0, 'vincent', 'fernandez', 'bagong silang caloocan', '09301798988', 'formal.png.jpg', 1, '', '', '2022-04-12'),
+(22, 'vincent@gmail.com', '$2y$10$PLDNFgDLzqKaxj4KYfikgeuwmSsHOVceU/F5QLFUl7MwUoppyT66e', 0, 'Vincent', 'Fernandez', 'Bagong Silang Caloocan City', '09301798988', '', 0, 'aqwe7Jjk9Icd', '', '2022-04-12'),
+(23, 'delacruzjuan@gmail.com', '$2y$10$FkPbGAM9ir5x4P7E7cIy.upBi4EYen63/R3kdjrUW33zBqmg/hseu', 0, 'Juan', 'Dela Cruz', '', '', '', 0, 'FYzN4SHAOGao', '', '2022-04-12'),
+(24, 'delacruzjuan@gmail.com', '$2y$10$54rJeNY2fkLrO/HXV.CIROAnT0jk7isUD7G1kOt3s1eOVrjetEISy', 0, 'Juan', 'Dela Cruz', '', '', '', 0, 'iHn6wjSfm2Vq', '', '2022-04-12'),
+(25, 'juanpedro@gmail.com', '$2y$10$9vyVblhttDstVHjFlO37iOXHbSHRgcFWvdWRSDj0dcNzapF2ZF6J.', 0, 'Juan', 'Pedro', '', '', '', 0, '7xmtnqpFWKl9', '', '2022-04-12'),
+(26, 'vincent@gmail.com', '$2y$10$e1ob6LEuA8pa.wiaakZEUekk18PvtnklGS9XHKWOQKqtgRIKQlXeC', 0, 'vincent', 'fernandez', '', '', '', 0, 'CWPnOXS6lRVD', '', '2022-04-12'),
+(27, 'juan@gmail.com', '$2y$10$vJpbTbPaTl.PYDk3KZV58ui8tLt5s/jbHpl20lH844GVBZ.Hmg6u2', 0, 'juan', 'dela cruz', 'quezon city', '09230498263', '', 0, 'm3iH6bhZyugp', '', '2022-05-03');
 
 --
 -- Indexes for dumped tables
@@ -204,6 +349,18 @@ ALTER TABLE `category`
 -- Indexes for table `details`
 --
 ALTER TABLE `details`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `orders`
+--
+ALTER TABLE `orders`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `paymentgcash`
+--
+ALTER TABLE `paymentgcash`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -232,37 +389,49 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `cart`
 --
 ALTER TABLE `cart`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
 
 --
 -- AUTO_INCREMENT for table `category`
 --
 ALTER TABLE `category`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `details`
 --
 ALTER TABLE `details`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+
+--
+-- AUTO_INCREMENT for table `orders`
+--
+ALTER TABLE `orders`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+
+--
+-- AUTO_INCREMENT for table `paymentgcash`
+--
+ALTER TABLE `paymentgcash`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=88;
 
 --
 -- AUTO_INCREMENT for table `sales`
 --
 ALTER TABLE `sales`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
