@@ -12,13 +12,13 @@
       <div class="collapse navbar-collapse pull-left" id="navbar-collapse">
         <ul class="nav navbar-nav">
           <li><a href="index.php">HOME</a></li>
-          <li><a href="#STILLONPROGRESS">ABOUT US</a></li>
-          <li><a href="#STILLONPROGRESS">CONTACT US</a></li>
+          <!-- <li><a href="#STILLONPROGRESS">ABOUT US</a></li> -->
+          <!-- <li><a href="#STILLONPROGRESS">CONTACT US</a></li> -->
           <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">CATEGORY <span class="caret"></span></a>
             <ul class="dropdown-menu" role="menu">
               <?php
-             
+
                 $conn = $pdo->open();
                 try{
                   $stmt = $conn->prepare("SELECT * FROM category");
@@ -26,7 +26,7 @@
                   foreach($stmt as $row){
                     echo "
                       <li><a href='category.php?category=".$row['name']."'>".$row['name']."</a></li>
-                    ";                  
+                    ";
                   }
                 }
                 catch(PDOException $e){

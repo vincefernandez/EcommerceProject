@@ -70,7 +70,7 @@
                         $stmt->execute();
 
                         foreach($stmt as $crow){
-                          $selected = ($crow['id'] == $catid) ? 'selected' : ''; 
+                          $selected = ($crow['id'] == $catid) ? 'selected' : '';
                           echo "
                             <option value='".$crow['id']."' ".$selected.">".$crow['name']."</option>
                           ";
@@ -90,8 +90,8 @@
                   <th>Photo</th>
                   <th>Description</th>
                   <th>Price</th>
-                  <th>Available Sizes</th>
-                  <th>Views Today</th>
+                  <th>Sizes</th>
+                  <th>Quantity</th>
 
                   <th>Tools</th>
                 </thead>
@@ -117,9 +117,9 @@
                             <td>&#8369; ".number_format($row['price'], 2)."</td>
                             <td>
                             ".$row['size']."
-                             
-                            </td>    
-                            <td>".$counter."</td>
+
+                            </td>
+                            <td>".$row['prodquantity']."</td>
                             <td>
                               <button class='btn btn-success btn-sm edit btn-flat' data-id='".$row['id']."'><i class='fa fa-edit'></i> Edit</button>
                               <button class='btn btn-danger btn-sm delete btn-flat' data-id='".$row['id']."'><i class='fa fa-trash'></i> Delete</button>
@@ -141,7 +141,7 @@
         </div>
       </div>
     </section>
-     
+
   </div>
   	<?php include 'includes/footer.php'; ?>
     <?php include 'includes/products_modal.php'; ?>
@@ -152,20 +152,20 @@
 
 <?php include 'includes/scripts.php'; ?>
 <script>
-  
 
-  
-$(document).ready(function () {
-    $('#checkBtn').click(function() {
-      checked = $("input[type=checkbox]:checked").length;
 
-      if(!checked) {
-        alert("You must check at least one checkbox.");
-        return false;
-      }
 
-    });
-});
+// $(document).ready(function () {
+//     $('#checkBtn').click(function() {
+//       checked = $("input[type=checkbox]:checked").length;
+
+//       if(!checked) {
+//         alert("You must check at least one checkbox.");
+//         return false;
+//       }
+
+//     });
+// });
 
 
 
@@ -234,6 +234,8 @@ function getRow(id){
       $('#edit_name').val(response.prodname);
       $('#catselected').val(response.category_id).html(response.catname);
       $('#edit_price').val(response.price);
+      $('#edit_quantity').val(response.prodquantity);
+      $('#selectedsize').val(response.prodsize).html(response.prodsize);
       CKEDITOR.instances["editor2"].setData(response.description);
       getCategory();
     }

@@ -8,6 +8,7 @@ if (!isset($_GET['page'])) {
 <?php include 'includes/session.php'; ?>
 <?php include 'includes/header.php'; ?>
 
+
 <body class="hold-transition skin-blue layout-top-nav">
 	<div class="wrapper">
 
@@ -38,6 +39,9 @@ if (!isset($_GET['page'])) {
 								</ol>
 								<div class="carousel-inner">
 									<div class="item active">
+										<!-- <div class="d-flex justify-content-center m-auto" style="width: 100%; height:300px">
+											<h1 class="text-center centerdiv"> Whole Sale and Retail Supplier </h1>
+										</div> -->
 										<img src="images/jappystore.png" class="img-fluid" style="width: 100%; height: 300px;" alt="First slide">
 									</div>
 									<div class="item">
@@ -81,11 +85,11 @@ if (!isset($_GET['page'])) {
 								// print_r($number_of_results);
 								// $number_of_pages = ceil($results_per_page / $number_of_results );
 
-								$number_of_pages = ceil( $number_of_results / $results_per_page);
+								$number_of_pages = ceil($number_of_results / $results_per_page);
 
 								// echo " $pages_number";
 								$this_page_first_result = ($page - 1) * $results_per_page;
-								$sql = $conn->prepare("Select * From products ORDER BY id DESC LIMIT " . $this_page_first_result . ',' . $results_per_page . "   "   );
+								$sql = $conn->prepare("Select * From products ORDER BY id DESC LIMIT " . $this_page_first_result . ',' . $results_per_page . "   ");
 
 								// $stmt = $conn->prepare("SELECT *, SUM(quantity) AS total_qty FROM details LEFT JOIN sales ON sales.id=details.sales_id LEFT JOIN products ON products.id=details.product_id WHERE MONTH(sales_date) = '$month' GROUP BY details.product_id ORDER BY total_qty DESC LIMIT 6");
 								$sql->execute();
@@ -104,10 +108,11 @@ if (!isset($_GET['page'])) {
 		       								<div class='box-body prod-body'>
 		       									<img src='" . $image . "' width='100%' height='230px' class='thumbnail'>
 		       									<h5><a href='product.php?product=" . $row['slug'] . "'>" . $row['name'] . "</a></h5>
-		       									<p class='small'>Available Size: <b>" . $row['size'] . "</b></p>
+		       									<p> Available Size: <b>" . $row['size'] . "</b>
 		       								</div>
 		       								<div class='box-footer'>
-		       									<b> &#8369; " . number_format($row['price'], 2) . "</b>
+											   <p> Prices : &#8369; <b>". number_format($row['price'], 2) . "</b><br>
+											   <p> Stocks Available : <b>" . $row['prodquantity'] . "</b>
 
 		       								</div>
 
@@ -136,7 +141,7 @@ if (!isset($_GET['page'])) {
 
 										// echo '<a href="index.php?page=' . $page  .  '">'  .  $page . ' </a> ';
 									}
-?>
+									?>
 								</ul>
 							</nav>
 							<?php
@@ -154,12 +159,14 @@ if (!isset($_GET['page'])) {
 			</div>
 		</div>
 		<?php
-		for ($page = 1; $page <= $number_of_page; $page++) {
-			echo '<a href = "index.php?page=' . $page . '">' . $page . ' </a>';
-		}
+		// for ($page = 1; $page <= $number_of_pages; $page++) {
+		// 	echo '<a href = "index.php?page=' . $page . '">' . $page . ' </a>';
+		// }
 		?>
-		<?php include 'includes/footer.php'; ?>
+		<?php  include 'includes/footer.php';  ?>
 	</div>
+	<!-- Site footer -->
+
 	<script>
 		$(document).ready(function() {
 			$('#data').DataTable();

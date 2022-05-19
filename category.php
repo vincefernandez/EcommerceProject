@@ -22,21 +22,21 @@
 <div class="wrapper">
 
 	<?php include 'includes/navbar.php'; ?>
-	 
+
 	  <div class="content-wrapper">
 	    <div class="container">
 
 	      <!-- Main content -->
 	      <section class="content">
 	        <div class="row">
-	        	<div class="col-sm-9">
+	        	<div class="col-sm-12">
 		            <h1 class="page-header"><?php echo $cat['name']; ?></h1>
 		       		<?php
-		       			
+
 		       			$conn = $pdo->open();
 
 		       			try{
-		       			 	$inc = 3;	
+		       			 	$inc = 3;
 						    $stmt = $conn->prepare("SELECT * FROM products WHERE category_id = :catid");
 						    $stmt->execute(['catid' => $catid]);
 						    foreach ($stmt as $row) {
@@ -59,7 +59,7 @@
 	       						";
 	       						if($inc == 3) echo "</div>";
 						    }
-						    if($inc == 1) echo "<div class='col-sm-4'></div><div class='col-sm-4'></div></div>"; 
+						    if($inc == 1) echo "<div class='col-sm-4'></div><div class='col-sm-4'></div></div>";
 							if($inc == 2) echo "<div class='col-sm-4'></div></div>";
 						}
 						catch(PDOException $e){
@@ -68,17 +68,15 @@
 
 						$pdo->close();
 
-		       		?> 
+		       		?>
 	        	</div>
-	        	<div class="col-sm-3">
-	        		<?php include 'includes/sidebar.php'; ?>
-	        	</div>
+
 	        </div>
 	      </section>
-	     
+
 	    </div>
 	  </div>
-  
+
   	<?php include 'includes/footer.php'; ?>
 </div>
 

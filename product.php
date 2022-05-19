@@ -6,7 +6,7 @@ $slug = $_GET['product'];
 
 try {
 
-	$stmt = $conn->prepare("SELECT *, products.Small AS productSmall, products.Medium AS productMedium, products.Large AS productLarge, products.name AS prodname, category.name AS catname, products.id AS prodid FROM products LEFT JOIN category ON category.id=products.category_id WHERE slug = :slug");
+	$stmt = $conn->prepare("SELECT *, products.size AS productsize, products.Small AS productSmall, products.Medium AS productMedium, products.Large AS productLarge, products.name AS prodname, category.name AS catname, products.id AS prodid FROM products LEFT JOIN category ON category.id=products.category_id WHERE slug = :slug");
 	$stmt->execute(['slug' => $slug]);
 	$product = $stmt->fetch();
 } catch (PDOException $e) {
@@ -69,9 +69,14 @@ if ($product['date_view'] == $now) {
 													</button>
 												</span>
 
+
 												<input type="hidden" value="<?php echo $product['prodid']; ?>" name="id" >
 											</div>
+											<div class="input-group col-sm-12">
+											<input type="text" name="Sizes" value="<?php echo $product['productsize'];?> " readonly>
+											</div>
 											<br>
+											<?php /*
 											<div class="input-group col-sm-12">
 
 												<select class="form-control form-control-lg" name="Sizes" >
@@ -83,6 +88,7 @@ if ($product['date_view'] == $now) {
 												</select>
 												<p style="color:tomato;">Leave this as default if no Sizes</p>
 											</div><br>
+											 */ ?>
 											<button type="submit" class="btn btn-primary btn-lg btn-flat"><i class="fa fa-shopping-cart"></i> Add to Cart</button>
 										</div>
 									</form>

@@ -59,6 +59,35 @@ if (isset($_POST['COD'])) {
 }
 
 
+if (isset($_POST['Gcash'])) {
+	$ReferenceNo = $_POST['ReferenceNo'];
+	$selectquery1 = $conn->prepare("Select * From users WHERE id=:id");
+	$selectquery1->execute(['id' => $_SESSION['user']]);
+	foreach ($selectquery1 as $value) {
+		$address = $value['address'];
+		$contact_number = $value['contact_info'];
+		$name = $value['firstname'] . ' ' . $value['lastname'];
+	}
+	try {
+		$stmtGcash = $conn->prepare("INSERT INTO paymentgcash (user_id, product_image, product_name, product_price, product_size, product_quantity, Name,contact_number,address,ReferenceNumber) VALUES (:user_id, :product_image,  :product_name, :product_price, :product_size, :product_quantity, :name, :contact_number, :address, :ReferenceNumber)");
+		$stmtGcash->execute(['user_id' => $user['id'],  'product_image' => $product_image, 'product_name' => $product_name, 'product_price' => $product_price, 'product_size' => $product_size, 'product_quantity' => $product_quantity, 'name' => $name, 'contact_number' => $contact_number, 'address' => $address, 'ReferenceNumber' => $ReferenceNo]);
+		if ($stmtGcash) {
+			echo "
+		<div class='alert alert-success' role='alert'>
+  <h4 class='alert-heading'>Well done!</h4>
+  <p>Congrats, you have Send via Gcash</p>
+  <hr>
+
+  <p class='text-gray'>After Verify the Reference Number, The seller will now deliver the Item to your register Address</p>
+
+</div>
+";
+		}
+	} catch (\Throwable $th) {
+		echo "err";
+	}
+}
+
 
 
 
@@ -79,7 +108,38 @@ if (isset($_POST['COD'])) {
 
 		<div class="content-wrapper">
 			<div class="container">
+				<!-- MODAL -->
 
+
+				<div class="modal fade" id="flipFlop" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+					<div class="modal-dialog" role="document">
+						<div class="modal-content">
+							<form action="cart_view.php" method="post">
+								<div class="modal-header">
+									<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+										<span aria-hidden="true">&times;</span>
+									</button>
+									<h4 class="modal-title" id="modalLabel">Payment Gcash</h4>
+								</div>
+								<div class="modal-body">
+									Gcash Name: <b>Jappy Galicha Singson</b><br>
+									GCash Number: <b>09957234115</b>
+									<br><br>
+									Upon sending the amount you really need to send the Reference No.
+									For the Confrimation
+									<br><br>
+									Reference Number :<input type="text" name="ReferenceNo" class="form-control">
+								</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+									<button type="submit" class="btn btn-secondary" name="Gcash">Submit</button>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+
+				<!-- END OF MODAL -->
 				<!-- Main content -->
 				<section class="content">
 					<div class="row">
@@ -101,39 +161,54 @@ if (isset($_POST['COD'])) {
 										<tbody id="tbody">
 										</tbody>
 									</table>
+
 								</div>
 							</div>
-							<div class="d-flex justify-content-between">
+
+
+
+							<div class="row">
 
 
 
 								<?php
 								if (isset($_SESSION['user'])) {
 									echo "
-	        					<div id='paypal-button'></div>
+	        					<div class='col-md-3' id='paypal-button'></div>
 
 	        				";
 								?>
-									<form action="cart_view.php" method="POST" onsubmit="return confirm('Cash on Delivery: Will notified the seller about the product you want to buy. \n Are you sure you want to continue?');">
-										<input type="submit" class="btn btn-info" name="COD" value="Cash on Delivery">
-
-									</form>
-									<a href="https://web.facebook.com/profile.php?id=100076215019737" target="_blank"> <button class="btn btn-info">Contact Via Facebook</a></button>
 
 
-									<!-- <form action="cart_view.php" method="POST">
-							<button type='button' name="COD" class='btn btn-primary inline-block ' onclick='confirmActiona()' >Cash on Delivery</button>
-							</form> -->
-								<?php } else {
-									echo "
-	        					<h4>You need to <a href='login.php'>Login</a> to checkout.</h4>
-	        				";
-								}
-								?>
+
+									<div class="col-md-3">
+										<form action="cart_view.php" method="POST" onsubmit="return confirm('Cash on Delivery: Will notified the seller about the product you want to buy. \n Are you sure you want to continue?');">
+											<input type="submit" class="btn btn-info" name="COD" value="Cash on Delivery">
+
+										</form>
+									</div>
+									<div class="col-md-3">
+										<button type="button" class="btn btn-info" data-toggle="modal" data-target="#flipFlop">
+											Payment Via Gcash
+										</button>
+									</div>
+									<div class="col-md-3">
+									<button class="btn btn-info"><a href="https://web.facebook.com/profile.php?id=100076215019737" target="_blank" >Contact Via Facebook</button></a>
+									</div>
 							</div>
 
 
 
+
+
+
+
+						<?php } else {
+									echo "
+	        					<h4>You need to <a href='login.php'>Login</a> to checkout.</h4>
+	        				";
+								}
+						?>
 
 						</div>
 						<?php /*
@@ -142,6 +217,8 @@ if (isset($_POST['COD'])) {
 	        	</div>
 				*/ ?>
 					</div>
+
+
 				</section>
 
 			</div>

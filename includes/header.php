@@ -14,6 +14,8 @@
   	<link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.min.css">
   	<!-- Theme style -->
   	<link rel="stylesheet" href="dist/css/AdminLTE.min.css">
+  	<link rel="stylesheet" href="dist/css/style.css">
+
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css">
 
 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>

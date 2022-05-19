@@ -16,7 +16,8 @@
 			try{
 				// $stmt1 = $conn->prepare("Insert into cart (Sizes), Values('$sizes')");
 				$stmt = $conn->prepare("INSERT INTO cart (user_id, product_id, quantity,Sizes) VALUES (:user_id, :product_id, :quantity, :Sizes)");
-				$stmt->execute(['user_id'=>$user['id'], 'product_id'=>$id, 'quantity'=>$quantity, 'Sizes'=>$sizes]);
+				$stmt->execute(['user_id'=>$user['id'], 'product_id'=>$id, 'quantity'=>$quantity, 'Sizes' => $sizes]);
+				// $stmt->execute(['user_id'=>$user['id'], 'product_id'=>$id, 'quantity'=>$quantity, 'Sizes'=>$sizes]);
 				// $stmt1->execute();
 				$output['message'] = 'Item added to cart';
 
